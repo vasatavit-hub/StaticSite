@@ -1,7 +1,7 @@
 from text_to_nodes import markdown_to_html_node, extract_title
 import os
 
-def generate_page(from_path, template_path, dest_path):
+def generate_page(from_path, template_path, dest_path,basepath):
     #Read from from_path
     with open(from_path) as file:
         markdown = file.read()
@@ -20,6 +20,10 @@ def generate_page(from_path, template_path, dest_path):
     #Replace {{ Content }}
     print(f"Inserting HTML Code to template")
     template = template.replace('{{ Content }}',content.to_html())
+    #Replace href="/
+    template = template.replace('href="/',f'href="{basepath}')
+    #Replace src="/
+    template = template.replace('src="/',f'src="{basepath}')
     #Check if dest_path exist
     #Create dir if necessary
     dir_path =os.path.dirname(dest_path)
@@ -30,7 +34,7 @@ def generate_page(from_path, template_path, dest_path):
     with open(dest_path,"w") as file3:
         file3.write(template)
 
-def generate_pages_recursively(source,template,destination):
+def generate_pages_recursively(source,template,destination,basepath):
     files = os.listdir(source)
     print(f"files {files}")
     for file in files:
@@ -38,6 +42,6 @@ def generate_pages_recursively(source,template,destination):
         dest = os.path.join(destination,file)
         if os.path.isfile(path):
             dest = dest.replace(".md",".html")
-            generate_page(path, template, dest)
+            generate_page(path, template, dest,basepath)
         else:
-            generate_pages_recursively(path,template,dest)
+            generate_pages_recursively(path,template,dest,basepath)

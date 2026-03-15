@@ -2,13 +2,8 @@ from textnode import *
 from static_to_public import *
 from text_to_nodes import *
 from generate_page import generate_pages_recursively
-import sys
-
-basepath = "/"
-if len(sys.argv)>1:
-    basepath = sys.argv[1]
 
 static_to_public()
 
-generate_pages_recursively("content","template.html","docs",basepath)
+generate_pages_recursively("content","template.html","public")
 

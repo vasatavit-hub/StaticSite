@@ -4,7 +4,7 @@ import os
 import shutil
 
 src = "./static"
-dst = "./public"
+dst = "./docs"
 
 def static_to_public():
     if os.path.exists(dst):
