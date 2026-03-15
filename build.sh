@@ -1,1 +1,1 @@
-python3 src/main.py "/vasatavit-hub/"
+python3 src/main.py "/StaticSite/"
